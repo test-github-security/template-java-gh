@@ -1,0 +1,20 @@
+name: memdsast-workflow
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    steps:
+    - name: checkout-source-code
+      uses: cloudbees-io/checkout@v1
+    - name: Run memdsast
+      uses: cloudbees-io/mendsast
+      with:
+        serverURL: ${{ vars.MENDSAST_SERVER_URL }}
+        token: ${{ secrets.MENDSAST_CLIENT_TOKEN }}
+        language: "LANGUAGE_JAVA"

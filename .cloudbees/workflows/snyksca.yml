@@ -1,0 +1,20 @@
+name: test-snyk-sca-workflow
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+
+on:
+  push:
+    branches:
+      - prod
+
+jobs:
+  build:
+    steps:
+      - name: checkout-source-code
+        uses: cloudbees-io/checkout@v1
+      - name: Run Snyk sca
+        uses: cloudbees-io/snyk-sca
+        with:
+          orgname: "cloudbees-compliance-partner-development" # snyk username
+          token: ${{ secrets.SNYK_SAST_TOKEN }} # snyk secret
+          language: "LANGUAGE_PHP" # language of the repo
