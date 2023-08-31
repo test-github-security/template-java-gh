@@ -1,1 +1,1 @@
-# template-java
+# template_mend_java
